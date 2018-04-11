@@ -1,0 +1,21 @@
+tableName 表名
+comments 备注
+pk 主键
+className 首字母大写类名
+classname 首字母小写类名
+author 作者
+datetime 创建时间
+ifCache 是否使用缓存
+columns 字段集合
+
+    attrName 首字母大写的属性名
+    attrname 首字母小写的属性名
+    columnName 列名
+    comments 字段注释
+    dataType 数据库类型
+    attrType Java类型   (EnumJavaType)
+    reference 引用实体类型
+    fieldLength 字段长度
+    ifSearch 是否可搜索 1 0
+    ifShow 是否展示 1 0
+    ifNull 是否可为空 1 0
