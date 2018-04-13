@@ -40,7 +40,11 @@ public class R extends HashMap<String, Object> {
 		r.putAll(map);
 		return r;
 	}
-	
+	public  R put(Map<String, Object> map) {
+		putAll(map);
+		return this;
+	}
+
 	public static R ok() {
 		return new R();
 	}
