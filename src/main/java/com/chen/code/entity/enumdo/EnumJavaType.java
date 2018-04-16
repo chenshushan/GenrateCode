@@ -6,11 +6,11 @@ import com.chen.code.common.IntegerValuedEnum;
  * Created by Administrator on 2017/11/18.
  */
 public enum EnumJavaType implements IntegerValuedEnum{
+	String("String",4,"varchar"),
 	Intger("Integer",0,"int"),
 	Long("Long",1,"bigint"),
 	Float("Float",2,"float"),
 	BigDecimal("BigDecimal",3,"decimal"),
-	String("String",4,"varchar"),
 	Date("Date",5,"datetime"),
 	Double("Double",6,"double"),
 	Boolean("Boolean",7,"char"),

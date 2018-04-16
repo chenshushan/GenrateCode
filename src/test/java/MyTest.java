@@ -3,6 +3,7 @@ import com.chen.code.entity.User;
 import com.chen.code.entity.enumdo.EnumBaseStatus;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.CharMatcher;
+import com.google.common.io.Files;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +24,12 @@ import static com.chen.code.controller.BaseController.copyProperties;
 public class MyTest {
 
 	@Test
-	public void beanTest() throws ParseException {
+	public void beanTest() {
 
+		String nameWithoutExtension = Files.getNameWithoutExtension("model/siteqi/Controller.java.ftl");
+		System.out.println(nameWithoutExtension);
+
+		System.out.println(Arrays.toString("1.1.1".split("\\.")));
 //		GenField field = new GenField();
 //		field.setCreatedTime(new Date());
 //		field.setDescription("123");

@@ -6,10 +6,12 @@ import com.chen.code.entity.enumdo.EnumJavaType;
 import com.chen.code.entity.vo.ColumnEntity;
 import com.chen.code.entity.vo.TableEntity;
 import com.google.common.base.CaseFormat;
+import com.google.common.io.Files;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 
@@ -65,7 +67,7 @@ public abstract class BaseGenerator {
 		// 配置信息
 		Configuration config = getConfig();
 		String tablePrefix = config.getString("tablePrefix");
-		String tableName = tableEntity.getTableName();
+		String tableName = table.getTableName();
 		if(StringUtils.isEmpty(tableName)){
 			// 表名
 			tableEntity.setTableName(tablePrefix + className);
@@ -108,7 +110,9 @@ public abstract class BaseGenerator {
 
 //			columnEntity.setExtra(extra);
 
-			columnEntity.setFieldLength(field.getFieldLength());
+			String fieldLength = field.getFieldLength();
+			fieldLength = Optional.ofNullable(fieldLength).orElse("200");
+			columnEntity.setFieldLength(fieldLength);
 
 			columnEntity.setIfSearch(field.getIfSearch().getIndex() + "");
 			columnEntity.setIfShow(field.getIfShow().getIndex() + "");
@@ -221,20 +225,30 @@ public abstract class BaseGenerator {
 
 	public static List<String> getTemplates(){
 		List<String> templates = new ArrayList();
-		templates.add("model/add.html.ftl");
-		templates.add("model/Controller.java.ftl");
-		templates.add("model/Dao.java.ftl");
+//		templates.add("model/add.html.ftl");
+//		templates.add("model/Controller.java.ftl");
+//		templates.add("model/Dao.java.ftl");
+//
+//		templates.add("model/Entity.java.ftl");
+//		templates.add("model/info.js.ftl");
+//		templates.add("model/list.html.ftl");
+//
+//		templates.add("model/list.js.ftl");
+//		templates.add("model/menu.sql.ftl");
+//
+//		templates.add("model/modi.html.ftl");
+//		templates.add("model/Service.java.ftl");
+//		templates.add("model/ServiceImpl.java.ftl");
 
-		templates.add("model/Entity.java.ftl");
-		templates.add("model/info.js.ftl");
-		templates.add("model/list.html.ftl");
+		templates.add("model/siteqi/Controller.java.ftl");
+		templates.add("model/siteqi/edit.html.ftl");
+		templates.add("model/siteqi/edit.js.ftl");
+		templates.add("model/siteqi/list.html.ftl");
+		templates.add("model/siteqi/list.js.ftl");
 
-		templates.add("model/list.js.ftl");
-		templates.add("model/menu.sql.ftl");
-
-		templates.add("model/modi.html.ftl");
-		templates.add("model/Service.java.ftl");
-		templates.add("model/ServiceImpl.java.ftl");
+		templates.add("model/siteqi/menu.sql.ftl");
+		templates.add("model/siteqi/Service.java.ftl");
+		templates.add("model/siteqi/ServiceImpl.java.ftl");
 
 		return templates;
 	}
@@ -296,51 +310,59 @@ public abstract class BaseGenerator {
 			packagePath += packageName.replace(".", File.separator) + File.separator;
 		}
 
-		if(template.contains("Controller.java")){
-			return packagePath + "controller" + File.separator + className + "Controller.java";
+		String[] split = Files.getNameWithoutExtension(template).split("\\.");
+		if(template.contains(".java")){
+			String s = "java" + File.separator + className + split[0] + ".java";
+			return s;
+		}else {
+			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + split[0] + "." + split[1];
 		}
 
-		if(template.contains("Dao.java")){
-			return packagePath + "dao" + File.separator + className + "Dao.java";
-		}
+//		if(template.contains("Controller.java")){
+//			return packagePath + "controller" + File.separator + className + "Controller.java";
+//		}
+//
+//		if(template.contains("Dao.java")){
+//			return packagePath + "dao" + File.separator + className + "Dao.java";
+//		}
+//
+//		if(template.contains("Entity.java")){
+//			return packagePath + "entity" + File.separator + className + "Entity.java";
+//		}
+//
+//		if(template.contains("Service.java")){
+//			return packagePath + "service" + File.separator + className + "Service.java";
+//		}
+//
+//		if(template.contains("ServiceImpl.java")){
+//			return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+//		}
+//
+//		if(template.contains("list.html")){
+//			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "List.ftl";
+//		}
+//
+//		if(template.contains("add.html")){
+//			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "Add.ftl";
+//		}
+//
+//		if(template.contains("modi.html")){
+//			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "Modi.ftl";
+//		}
+//
+//		if(template.contains("list.js")){
+//			return "webapp" + File.separator + "js" + File.separator + className.toLowerCase() + ".js";
+//		}
+//
+//		if(template.contains("info.js")){
+//			return "webapp" + File.separator + "js" + File.separator + className.toLowerCase() + "Info.js";
+//		}
+//
+//		if(template.contains("menu.sql")){
+//			return className.toLowerCase() + "_menu.sql";
+//		}
 
-		if(template.contains("Entity.java")){
-			return packagePath + "entity" + File.separator + className + "Entity.java";
-		}
-
-		if(template.contains("Service.java")){
-			return packagePath + "service" + File.separator + className + "Service.java";
-		}
-
-		if(template.contains("ServiceImpl.java")){
-			return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
-		}
-
-		if(template.contains("list.html")){
-			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "List.ftl";
-		}
-
-		if(template.contains("add.html")){
-			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "Add.ftl";
-		}
-
-		if(template.contains("modi.html")){
-			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + "Modi.ftl";
-		}
-
-		if(template.contains("list.js")){
-			return "webapp" + File.separator + "js" + File.separator + className.toLowerCase() + ".js";
-		}
-
-		if(template.contains("info.js")){
-			return "webapp" + File.separator + "js" + File.separator + className.toLowerCase() + "Info.js";
-		}
-
-		if(template.contains("menu.sql")){
-			return className.toLowerCase() + "_menu.sql";
-		}
-
-		return null;
+//		return null;
 	}
 
 
