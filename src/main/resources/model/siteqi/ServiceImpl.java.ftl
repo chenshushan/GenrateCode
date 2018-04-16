@@ -48,7 +48,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 		List params = getConditionSql(conditionSql, inParam, lvo);
 
 
-		StringBuffer countSql = new StringBuffer();
+		StringBuilder countSql = new StringBuilder();
 		countSql.append(" select count(1) from (").append(conditionSql).append(")");
 
 		String rowCount = baseDao.findString(countSql.toString(), params.toArray());
@@ -113,8 +113,8 @@ public class ${className}ServiceImpl  implements ${className}Service {
 	<#list columns as column>.set("${column.attrname}")</#list>
     	.addParam(priKey);
 
-		baseDao.updateBySql(sql, builder.getParams().toArray());
 		addHisRecord(priKey, "U", lvo);
+		baseDao.updateBySql(sql, builder.getParams().toArray());
 		return ParamsBuilder.ok("修改成功");
 
 	}
