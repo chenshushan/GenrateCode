@@ -29,8 +29,9 @@
             <dt><h3 class="c-tt">查询条件</h3></dt>
             <dd>
                 <div class="tj-box clearfix">
+                <div class="querysub">
  <#list columns as column>
-                    <div class="querysub">
+
      <#if (column.ifSearch == "1")>
                         <div class="inner_line" style="display:inline;width:33%;float:left">
                             <div class="query_lbl half">
@@ -41,9 +42,9 @@
                             </div>
                         </div>
      </#if>
-                    </div>
- </#list>
 
+ </#list>
+                </div>
 
 
                     <div class="mgt-15 tc ">

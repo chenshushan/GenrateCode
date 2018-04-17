@@ -13,7 +13,11 @@ function doQuery(){
 		columns: [
 <#list columns as column>
 	<#if (column.ifShow == "1")>
+            <#if (column.attrType == "String")>
+          {display:'${column.comments}',name:'${column.columnName }',align:'center',width:100,ret:true,render:function(row){ return renderRow(row,'${column.columnName }');}  },
+            <#else>
 			{ display: '${column.comments}', name: '${column.attrname}', width: 80 },
+            </#if>
 	</#if>
 </#list>
 			{display:'操作',isSort:false,render:operate,width: 80 }
@@ -93,15 +97,17 @@ function doDelete(priKey){
     })
 }
 function doExport() {
-    var params = {};
-<#list columns as column>
-	<#if (column.ifSearch == "1")>
-    params.${column.attrname} = $("#${column.attrname}").val();
-	</#if>
-</#list>
 	var url = "/businessMixture/doExport?" +
-<#list columns as column><#if (column.ifSearch == "1")>     "${column.attrname}=" + $("#${column.attrname}").val() +</#if>
-</#list>
-    "";
+<#list columns as column><#if (column.ifSearch == "1")>"${column.attrname}=" + $("#${column.attrname}").val() +</#if>
+</#list> "";
     $("#exportFrame").attr("src", url);
+}
+
+function renderRow(row, dataName) {
+    var data = row[dataName];
+    if(data != undefined && data.length>9){
+        return "<span title='"+ data +"'>" + data.substring(0,9) + "...<span>";
+    }else{
+        return data;
+    }
 }

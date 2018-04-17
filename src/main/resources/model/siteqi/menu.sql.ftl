@@ -1,4 +1,4 @@
-CREATE TABLE "CHNCLOUD"."${tableName }"(
+CREATE TABLE  "${tableName }"(
 <#list columns as column>
 
     <#if (column.attrType == "String")>
@@ -10,14 +10,14 @@ CREATE TABLE "CHNCLOUD"."${tableName }"(
     <#else>
     </#if>
 </#list>
-	"PRI_KEY" VARCHAR2(50) NOT NULL ENABLE
-   )
+	"PRI_KEY" VARCHAR2(100) NOT NULL ENABLE
+   );
 
 <#list columns as column>
-   COMMENT ON COLUMN "CHNCLOUD"."${tableName }"."${column.columnName}" IS '${column.comments }';
+   COMMENT ON COLUMN  "${tableName }"."${column.columnName}" IS '${column.comments }';
 </#list>
 
-CREATE TABLE "CHNCLOUD"."${tableName }His"(
+CREATE TABLE  "${tableName }HIS"(
 <#list columns as column>
 
     <#if (column.attrType == "String")>
@@ -29,11 +29,17 @@ CREATE TABLE "CHNCLOUD"."${tableName }His"(
     <#else>
     </#if>
 </#list>
-    "OP_LOGIN" VARCHAR2(20),
-	"OP_TIME" VARCHAR2(50),
+    "OP_LOGIN" VARCHAR2(100),
+	"OP_TIME" DATE,
 	"OP_TYPE" VARCHAR2(20)
-   )
+   );
 
 <#list columns as column>
-   COMMENT ON COLUMN "CHNCLOUD"."${tableName }His"."${column.columnName}" IS '${column.comments }';
+   COMMENT ON COLUMN "${tableName }HIS"."${column.columnName}" IS '${column.comments }';
 </#list>
+
+
+
+create sequence SEQ_${tableName }_KEY
+start with 10000
+increment by 1;

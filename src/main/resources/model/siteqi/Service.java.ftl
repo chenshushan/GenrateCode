@@ -4,7 +4,6 @@ import com.sitech.prm.sccloud.vo.LoginOprVO;
 import com.sitech.prm.sccloud.vo.PageListVo;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public interface ${className}Service {

@@ -42,7 +42,7 @@ ${classname}Info.setData = function (key,val) {
  * 收集数据
  */
 ${classname}Info.collectData = function () {
-    this.<#list columns as column>.set('${column.attrname}')</#list>;
+    this<#list columns as column>.set("${column.attrname}")</#list>;
 };
 
 
@@ -130,8 +130,8 @@ ${classname}Info.loadData = function (priKey) {
             var result = data.RESULT;
             <#list columns as column>
             var ${column.attrname} = result.${column.columnName };
-            ${classname}Info.setData('${column.attrname}', ${column.attrname});
-            </#list>;
+            </#list>
+${classname}Info.<#list columns as column>setData('${column.attrname}', ${column.attrname});</#list>
 
         } else {
             $.ligerDialog.error(returnMsg);

@@ -241,6 +241,7 @@ public abstract class BaseGenerator {
 //		templates.add("model/ServiceImpl.java.ftl");
 
 		templates.add("model/siteqi/Controller.java.ftl");
+		templates.add("model/siteqi/ControllerRS.java.ftl");
 		templates.add("model/siteqi/edit.html.ftl");
 		templates.add("model/siteqi/edit.js.ftl");
 		templates.add("model/siteqi/list.html.ftl");

@@ -71,7 +71,7 @@
 
     <div id="columnsToolbar" class="btn-group">
         <button id="btn_add" type="button" class="btn btn-default" onclick="addField()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增字段
         </button>
     </div>
     <table id="fields" class="text-center"></table>

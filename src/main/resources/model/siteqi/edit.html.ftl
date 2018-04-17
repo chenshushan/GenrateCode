@@ -55,7 +55,7 @@
                                     <span>${column.comments}:</span>
                                 </div>
                                 <div class="query_txt half">
-                                    <input class="txt_input" type="text" id="${column.attrname}" name="${column.attrname}" />
+                                    <input class="txt_input <#if (column.ifNull =='0' )>required</#if> " type="text" id="${column.attrname}" name="${column.attrname}" />
                                 </div>
                             </div>
 

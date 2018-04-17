@@ -1,9 +1,12 @@
 package com.sitech.prm.scchannel.channel.${classname};
 
-import com.google.common.collect.Lists;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 import com.sitech.prm.scchannel.common.CommonService;
 import com.sitech.prm.sccloud.frame.common.BaseDao;
 import com.sitech.prm.sccloud.frame.service.jdbc.GenericDao;
+import com.sitech.prm.sccloud.util.ParamsBuilder;
 import com.sitech.prm.sccloud.util.StringTools;
 import com.sitech.prm.sccloud.vo.LoginOprVO;
 import com.sitech.prm.sccloud.vo.PageListVo;
@@ -15,7 +18,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Service("${classname}ServiceImpl")
@@ -32,13 +34,13 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 	private Log logger;
 
-	public BusinessMixtureServiceImpl(){
+	public ${className}ServiceImpl(){
 		logger = LogFactory.getLog(this.getClass());
 	}
 
 
 	@Override
-	public PageListVo getPage(Map<String, String> inParam, LoginOprVO lvo) {
+	public PageListVo getPage(HashMap<String, String> inParam, LoginOprVO lvo) {
 
 		int page = Integer.parseInt(inParam.get("page"));// 第几页
 		int pageSize = Integer.parseInt(inParam.get("pagesize"));// 每页几行
@@ -86,7 +88,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-    public Map<String,String> doAdd(Map<String, Object> inParam, LoginOprVO lvo){
+    public Map<String,String> doAdd(HashMap<String, Object> inParam, LoginOprVO lvo){
 		String sql = "insert into ${tableName}(<#list columns as column>${column.columnName},</#list>PRI_KEY) values (<#list columns as column>?,</#list>?)";
 
 
@@ -103,7 +105,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-    public Map<String,String> doUpdate(Map<String, String> inParam, LoginOprVO lvo){
+    public Map<String,String> doUpdate(HashMap<String, String> inParam, LoginOprVO lvo){
 		String sql ="update ${tableName} set " +
         " <#list columns as column>${column.columnName} = ?<#if (column_index != columns?size -1 )>,</#if></#list> " +
         " where PRI_KEY=?";
@@ -123,7 +125,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public Map<String,String> doDelete(Map<String, String> inParam, LoginOprVO lvo){
+	public Map<String,String> doDelete(HashMap<String, String> inParam, LoginOprVO lvo){
 		String priKeys = StringTools.changeNullStr(inParam.get("priKey"));
 		if("".equals(priKeys)){
 			return ParamsBuilder.error("没有对应的记录");
@@ -142,7 +144,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 	}
 
 	@Override
-	public Map<String,String> getEntity(Map<String, String> inParam, LoginOprVO lvo){
+	public Map<String,String> getEntity(HashMap<String, String> inParam, LoginOprVO lvo){
         Object priKey = inParam.get("priKey");
 
         String sql = "select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list> " +
@@ -165,7 +167,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 		String [] head = new String [${columns?size}];
 		<#list columns as column>
-		head[column_index] ="${column.comments}";
+		head[${column_index}] ="${column.comments}";
 		</#list>
 		List<String[]> headList = new ArrayList();
 		headList.add(head);
@@ -211,11 +213,11 @@ public class ${className}ServiceImpl  implements ${className}Service {
 		if(entitys.size() == 0 || entitys.size() > 1){
 			return false;
 		}
-		ParamsBuilder builder = ParamsBuilder.builder(inParam)
+		ParamsBuilder builder = ParamsBuilder.builder(entitys.get(0))
 <#list columns as column>.set("${column.attrname}")</#list>
 		.addParam(lvo.getLoginNo(), opType);
 
-		baseDao.updateBySql(sqlHis,paramsBuilder.getParams().toArray());
+		baseDao.updateBySql(sqlHis,builder.getParams().toArray());
 		return true;
 	}
 

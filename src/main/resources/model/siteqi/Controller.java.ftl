@@ -1,11 +1,9 @@
 
 package com.sitech.prm.scchannel.channel.${classname};
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sitech.prm.sccloud.frame.common.NormalController;
-import com.sitech.prm.sccloud.service.JsonReportUtils;
 import com.sitech.prm.sccloud.service.ServiceUtils;
 import com.sitech.prm.sccloud.util.ExcelUtils;
 import com.sitech.prm.sccloud.vo.LoginOprVO;
