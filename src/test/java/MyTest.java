@@ -1,3 +1,4 @@
+import cn.hutool.core.io.FileUtil;
 import com.chen.code.entity.Template;
 import com.chen.code.entity.User;
 import com.chen.code.entity.enumdo.EnumBaseStatus;
@@ -6,6 +7,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.io.Files;
 import org.junit.Test;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -98,9 +100,11 @@ public class MyTest {
 	 */
 	@Test
 	public void dateTest(){
-		LocalDateTime parse = LocalDateTime.parse("2017-10-10 10-10-10");
-		String format = parse.format(DateTimeFormatter.BASIC_ISO_DATE);
-		System.out.println(format);
+
+		File touch = FileUtil.touch("F:\\360Downloads\\a\\b\\c.txt");
+
+		System.out.println(touch.getPath());
+
 	}
 
 

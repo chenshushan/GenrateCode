@@ -30,7 +30,7 @@
 
 
                 <div class="panel-body">
-                    <form id="templateInfoForm" class="form-horizontal">
+                    <form id="templateInfoForm" class="form-horizontal" enctype="multipart/form-data" method="post" action="/template/addOK">
                         <div class="form-group">
                             <div class="condition-div col-sm-6">
                                 <label class="control-label col-sm-4" for="templateName">属性名:</label>
@@ -40,32 +40,29 @@
                                 </div>
                             </div>
                             <div class="condition-div col-sm-6">
-                                <label class="control-label col-sm-4" for="templatePath">备注:</label>
+                                <label class="control-label col-sm-4" for="templatePath">路径:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="templatePath" name="templatePath"
-                                           value="${entity.templatePath}">
+                                    <input type="text" class="form-control" onclick="$('#filePath').click();"   value="${entity.templatePath}">
+                                    <input id="filePath" name="file"  class="form-control"  type="file"  style="display: none" onchange="$(this).prev().val($(this).val())">
                                 </div>
                             </div>
                             <div class="condition-div col-sm-6">
                                 <label class="control-label col-sm-4" for="addUser">属性类型:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="addUser" name="addUser"
-                                           value="${entity.addUser}">
+                                    <input type="text" class="form-control" id="addUser" name="addUser"  value="${entity.addUser}">
                                 </div>
                             </div>
                             <div class="condition-div col-sm-6">
                                 <label class="control-label col-sm-4" for="uploadTime">上传时间:</label>
                                 <div class="col-sm-8">
-                                    <input id="uploadTime" name="uploadTime" readonly="readonly"
-                                           class="laydate-icon form-control layer-date">
-
+                                    <input id="uploadTime" name="uploadTime" readonly="readonly"  class="laydate-icon form-control layer-date">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-12 text-center">
-                                <button id="btn_query" onclick="templateInfo.addSubmit()" class="btn btn-primary">提交
+                                <button id="btn_query" onclick="this.form.submit()" class="btn btn-primary">提交
                                 </button>&nbsp;
                                 <button id="btn_reset" type="reset" class="btn btn-primary">重置</button>
                             </div>
