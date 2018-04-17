@@ -207,15 +207,15 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 	private boolean addHisRecord(String priKey, String opType, LoginOprVO lvo){
 		// 插入修改前的记录到历史表
-		String sqlHis = "INSERT INTO ${tableName} (<#list columns as column>${column.columnName},</#list> op_login, op_time,  op_type)" +
+		String sqlHis = "INSERT INTO ${tableName}HIS (<#list columns as column>${column.columnName},</#list> op_login, op_time,  op_type)" +
 		" VALUES (<#list columns as column>?,</#list> ?, sysdate, ?)";
 		List<Map> entitys = baseDao.findBySql("select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list> from ${tableName} where PRI_KEY = ? ", new Object[]{priKey});
 		if(entitys.size() == 0 || entitys.size() > 1){
 			return false;
 		}
 		ParamsBuilder builder = ParamsBuilder.builder(entitys.get(0))
-<#list columns as column>.set("${column.attrname}")</#list>
-		.addParam(lvo.getLoginNo(), opType);
+<#list columns as column>.set("${column.columnName}")</#list>
+		.addParam(lvo.getLoginNo(), opType).addParam(priKey);
 
 		baseDao.updateBySql(sqlHis,builder.getParams().toArray());
 		return true;

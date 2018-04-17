@@ -59,7 +59,7 @@ function toEdit(updateType,priKey){
         height:640,
         width: 950,
         title : titles,
-        url: '${classname}Edit.html',
+        url: '${classname?lower_case}edit.html',
         showMax: false,
         showToggle: false,
         showMin: false,

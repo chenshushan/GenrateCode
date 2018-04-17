@@ -29,6 +29,7 @@ CREATE TABLE  "${tableName }HIS"(
     <#else>
     </#if>
 </#list>
+    "PRI_KEY" VARCHAR2(100) NOT NULL ENABLE,
     "OP_LOGIN" VARCHAR2(100),
 	"OP_TIME" DATE,
 	"OP_TYPE" VARCHAR2(20)

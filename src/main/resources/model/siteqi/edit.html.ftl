@@ -39,7 +39,7 @@
 <div class="c-jx-box" style="padding: 5px;">
     <dl class="c-jx-q-tj">
         <dd style="margin-top: 0px">
-            <form id="${classname}Form">
+            <form id="${classname}InfoForm">
                 <fieldset style="margin-right:3px;width:100%;border:1px solid #e1ecf9;">
                     <legend style="margin-left:10px;">${comments}</legend>
                     <div class="tj-box clearfix">
@@ -91,7 +91,7 @@
 <script type="text/javascript" src="../common/js/common.js"></script><!-- 一些常用的公共方法 -->
 
 <!-- 非公共部分js -->
-<script charset="utf-8" type="text/javascript" src="${classname }Edit.js"></script>
+<script charset="utf-8" type="text/javascript" src="${classname?lower_case }edit.js"></script>
 
 </body>
 </html>

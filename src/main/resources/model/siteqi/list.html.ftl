@@ -81,8 +81,7 @@
 <script type="text/javascript" src="../common/js/common.js"></script><!-- 一些常用的公共方法 -->
 
 <!-- 非公共部分js -->
-<script charset="utf-8" type="text/javascript" src="address.js"></script>
-<script charset="utf-8" type="text/javascript" src="businessmixture.js"></script>
+<script charset="utf-8" type="text/javascript" src="${classname?lower_case }list.js"></script>
 
 </body>
 </html>

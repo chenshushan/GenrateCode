@@ -123,15 +123,17 @@ ${classname}Info.doEdit = function () {
 }
 
 ${classname}Info.loadData = function (priKey) {
-    stc.rest.queryForPost("/${classname}/getData", {priKey : priKey}, function(data) {
+    stc.rest.queryForPost("/${classname}/getEntity", {priKey : priKey}, function(data) {
         var returnCode = data.RETURN_CODE;
         var returnMsg = data.RETURN_MSG;
         if (returnCode == "0") {
-            var result = data.RESULT;
             <#list columns as column>
-            var ${column.attrname} = result.${column.columnName };
+            var ${column.attrname} = data.${column.columnName };
             </#list>
-${classname}Info.<#list columns as column>setData('${column.attrname}', ${column.attrname});</#list>
+            var priKey = data.PRI_KEY;
+
+${classname}Info<#list columns as column>.setData('${column.attrname}', ${column.attrname})</#list>
+        .set("priKey",priKey);
 
         } else {
             $.ligerDialog.error(returnMsg);
