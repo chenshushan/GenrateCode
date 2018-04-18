@@ -128,6 +128,11 @@ public class ${className}Controller extends NormalController{
 
 			// 导出文件
 			ExcelUtils.exportXls(fileName, sheetName, response, o, waterMarkInfo);
+
+			// 文件导出之后按这个flag判断文件是否下载完成
+			String fileDownloadedFlag = StringTools.changeNullStr(params.get("fileDownloadedFlag")).trim();
+			request.getSession().setAttribute(fileDownloadedFlag, "");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

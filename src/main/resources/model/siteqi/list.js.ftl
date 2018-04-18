@@ -20,6 +20,16 @@ function doQuery(){
             </#if>
 	</#if>
 </#list>
+          { display: '类型',name:'STATE',align:'center',width:40,ret:true,render:function(row){
+                    var state = row.STATE;
+                    if(state == 1){
+                        return "有效";
+                    }else {
+                        return "无效";
+                    }
+                }
+            },
+
 			{display:'操作',isSort:false,render:operate,width: 80 }
         ],
         //title:'查询结果',
@@ -40,7 +50,11 @@ function doQuery(){
 }
 function operate(rowdata, index) {
     var priKey = rowdata.${classname?upper_case}ID;
-    var h = "&nbsp;<a href=javascript:toEdit('U',"+ priKey +")>编辑</a>&nbsp;&nbsp;<a href=javascript:doDelete("+ priKey +")>删除</a>";
+    var h = "&nbsp;<a href=javascript:toEdit('U',"+ priKey +")>编辑</a>";
+    var state = rowdata.STATE;
+    if(state != 0){
+        h = h + "&nbsp;&nbsp;<a href=javascript:doDelete("+ priKey +")>删除</a>";
+    }
     return h
 }
 
@@ -97,10 +111,25 @@ function doDelete(priKey){
     })
 }
 function doExport() {
+    var fileDownloadedFlag = new Date().getTime();
+    //加遮罩
+    elementBlockWithTitle('body','','导出中...');
 	var url = "/businessMixture/doExport?a=a" +
 <#list columns as column><#if (column.ifSearch == "1")>"&${column.attrname}=" + $("#${column.attrname}").val() +</#if>
-</#list> "";
+</#list> "&fileDownloadedFlag=" + fileDownloadedFlag;
     $("#exportFrame").attr("src", url);
+
+      var timer = setInterval(function(){
+        var date = new Date().getTime();
+        $.get('/agentApplay/checkFileLoad?time='+date+ "&fileDownloadedFlag=" + fileDownloadedFlag, null, function(res){
+            if(res.flag){//下载完成，解除遮罩
+                clearInterval(timer);
+                //doClose();
+                $.ligerDialog.success('下载成功');
+                elementUnblock('body','');
+            }
+        });
+    }, 1000);
 }
 
 function renderRow(row, dataName) {
