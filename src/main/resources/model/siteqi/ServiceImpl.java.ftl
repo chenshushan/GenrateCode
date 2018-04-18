@@ -89,10 +89,10 @@ public class ${className}ServiceImpl  implements ${className}Service {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
     public Map<String,String> doAdd(HashMap<String, Object> inParam, LoginOprVO lvo){
-		String sql = "insert into ${tableName}(<#list columns as column>${column.columnName},</#list>PRI_KEY) values (<#list columns as column>?,</#list>?)";
+		String sql = "insert into ${tableName}(<#list columns as column>${column.columnName},</#list>${classname}Id,state) values (<#list columns as column>?,</#list>?,'1')";
 
 
-		String key = getSequenceKey("SEQ_${tableName}");
+		String key = getSequenceKey("SEQ_${tableName}_KEY");
 		ParamsBuilder builder = ParamsBuilder.builder(inParam)
 	<#list columns as column>.set("${column.attrname}")</#list>.addParam(key);
 
@@ -108,7 +108,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
     public Map<String,String> doUpdate(HashMap<String, String> inParam, LoginOprVO lvo){
 		String sql ="update ${tableName} set " +
         " <#list columns as column>${column.columnName} = ?<#if (column_index != columns?size -1 )>,</#if></#list> " +
-        " where PRI_KEY=?";
+        " where ${classname}Id=?";
 
 		String priKey = inParam.get("priKey");
 		ParamsBuilder builder = ParamsBuilder.builder(inParam)
@@ -137,7 +137,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 		}
 
 		String ids = Joiner.on("','").join(split);
-		String sql = "update ${tableName} set state = '0' where  pri_Key  in ('" + ids+ "')";
+		String sql = "update ${tableName} set state = '0' where  ${classname}Id  in ('" + ids+ "')";
 		baseDao.updateBySql(sql);
 
 		return ParamsBuilder.ok("删除成功");
@@ -147,8 +147,8 @@ public class ${className}ServiceImpl  implements ${className}Service {
 	public Map<String,String> getEntity(HashMap<String, String> inParam, LoginOprVO lvo){
         Object priKey = inParam.get("priKey");
 
-        String sql = "select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list> " +
-        "from ${tableName} b where  b.PRI_KEY= ?";
+        String sql = "select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list>,${classname}Id " +
+        "from ${tableName} b where  b.${classname}Id= ?";
 
         List<Map> list = baseDao.findBySql(sql, new Object[]{priKey});
         if(list.size() == 0 ){
@@ -174,7 +174,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 		list.addAll(headList);
 
-        List<String[]> result = baseDao.findBySqlReArray(conditionSql.toString().replace(",PRI_KEY",""), params.toArray());
+        List<String[]> result = baseDao.findBySqlReArray(conditionSql.toString().replace(",${classname}Id",""), params.toArray());
 
         list.addAll(result);
 		Map<String, Object> retMap = new HashMap();
@@ -207,15 +207,15 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 	private boolean addHisRecord(String priKey, String opType, LoginOprVO lvo){
 		// 插入修改前的记录到历史表
-		String sqlHis = "INSERT INTO ${tableName}HIS (<#list columns as column>${column.columnName},</#list> op_login, op_time,  op_type)" +
-		" VALUES (<#list columns as column>?,</#list> ?, sysdate, ?)";
-		List<Map> entitys = baseDao.findBySql("select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list> from ${tableName} where PRI_KEY = ? ", new Object[]{priKey});
+		String sqlHis = "INSERT INTO ${tableName}HIS (<#list columns as column>${column.columnName},</#list> op_login, op_time,  op_type,${classname}Id,state)" +
+		" VALUES (<#list columns as column>?,</#list> ?, sysdate, ?, ?, ?)";
+		List<Map> entitys = baseDao.findBySql("select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list>,${classname}Id,state from ${tableName} where ${classname}Id = ? ", new Object[]{priKey});
 		if(entitys.size() == 0 || entitys.size() > 1){
 			return false;
 		}
 		ParamsBuilder builder = ParamsBuilder.builder(entitys.get(0))
 <#list columns as column>.set("${column.columnName}")</#list>
-		.addParam(lvo.getLoginNo(), opType).addParam(priKey);
+		.addParam(lvo.getLoginNo(), opType).addParam(priKey).set("STATE");
 
 		baseDao.updateBySql(sqlHis,builder.getParams().toArray());
 		return true;

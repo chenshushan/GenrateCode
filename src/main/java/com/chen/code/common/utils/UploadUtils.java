@@ -29,7 +29,6 @@ public class UploadUtils {
 //		服务器端文件
 		filePath = filePath + File.separator + newFileName + "." + fileExtension;
 		File saveFile = FileUtil.touch(filePath);
-//				Fileutil StringUtil.createFileOrDir(filePath);
 		file.transferTo(saveFile);
 		return saveFile;
 	}

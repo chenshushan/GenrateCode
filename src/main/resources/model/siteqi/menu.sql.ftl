@@ -10,7 +10,8 @@ CREATE TABLE  "${tableName }"(
     <#else>
     </#if>
 </#list>
-	"PRI_KEY" VARCHAR2(100) NOT NULL ENABLE
+	"${classname?upper_case}ID" VARCHAR2(100) NOT NULL ENABLE,
+	"STATE" VARCHAR2(100) NOT NULL ENABLE
    );
 
 <#list columns as column>
@@ -29,7 +30,8 @@ CREATE TABLE  "${tableName }HIS"(
     <#else>
     </#if>
 </#list>
-    "PRI_KEY" VARCHAR2(100) NOT NULL ENABLE,
+    "${classname?upper_case}ID" VARCHAR2(100) NOT NULL ENABLE,
+    "STATE" VARCHAR2(100) NOT NULL ENABLE,
     "OP_LOGIN" VARCHAR2(100),
 	"OP_TIME" DATE,
 	"OP_TYPE" VARCHAR2(20)

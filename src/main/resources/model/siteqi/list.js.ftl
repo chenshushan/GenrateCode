@@ -16,7 +16,7 @@ function doQuery(){
             <#if (column.attrType == "String")>
           {display:'${column.comments}',name:'${column.columnName }',align:'center',width:100,ret:true,render:function(row){ return renderRow(row,'${column.columnName }');}  },
             <#else>
-			{ display: '${column.comments}', name: '${column.attrname}', width: 80 },
+			{ display: '${column.comments}', name: '${column.columnName}', width: 80 },
             </#if>
 	</#if>
 </#list>
@@ -39,7 +39,7 @@ function doQuery(){
     });
 }
 function operate(rowdata, index) {
-    var priKey = rowdata.PRI_KEY;
+    var priKey = rowdata.${classname?upper_case}ID;
     var h = "&nbsp;<a href=javascript:toEdit('U',"+ priKey +")>编辑</a>&nbsp;&nbsp;<a href=javascript:doDelete("+ priKey +")>删除</a>";
     return h
 }
@@ -97,8 +97,8 @@ function doDelete(priKey){
     })
 }
 function doExport() {
-	var url = "/businessMixture/doExport?" +
-<#list columns as column><#if (column.ifSearch == "1")>"${column.attrname}=" + $("#${column.attrname}").val() +</#if>
+	var url = "/businessMixture/doExport?a=a" +
+<#list columns as column><#if (column.ifSearch == "1")>"&${column.attrname}=" + $("#${column.attrname}").val() +</#if>
 </#list> "";
     $("#exportFrame").attr("src", url);
 }

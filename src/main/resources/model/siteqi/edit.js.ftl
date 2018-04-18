@@ -130,10 +130,10 @@ ${classname}Info.loadData = function (priKey) {
             <#list columns as column>
             var ${column.attrname} = data.${column.columnName };
             </#list>
-            var priKey = data.PRI_KEY;
+            var priKey = data.${classname?upper_case}ID;
 
 ${classname}Info<#list columns as column>.setData('${column.attrname}', ${column.attrname})</#list>
-        .set("priKey",priKey);
+        .setData("priKey",priKey);
 
         } else {
             $.ligerDialog.error(returnMsg);
