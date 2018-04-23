@@ -1,4 +1,4 @@
-package com.sitech.prm.scchannel.channel.${classname};
+package com.sitech.prm.scchannel.channel.${classname?lower_case};
 
 import com.sitech.prm.sccloud.frame.common.RSController;
 import com.sitech.prm.sccloud.service.ServiceUtils;
@@ -16,10 +16,18 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ *   ${comments}
+ */
 @Controller
 @RequestMapping(value = "/frame/${classname}")
 public class ${className}ControllerRS extends RSController{
 
+	/**  ${comments}分页查询
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
 	@RequestMapping(value = "/getPage", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 	public Object getPage(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
@@ -33,9 +41,15 @@ public class ${className}ControllerRS extends RSController{
 			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
 		}
 	}
-	@RequestMapping(value = "/doAdd", method = { RequestMethod.POST, RequestMethod.GET })
+
+	/** 添加 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/add${className}", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
-	public Object doAdd(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
+	public Object add${className}(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
 		try {
 			JSONArray jsonArray = loadParamJSONArray(json);
 			Map<?, ?> inParams = getElement(request, jsonArray, 0, HashMap.class);
@@ -46,9 +60,15 @@ public class ${className}ControllerRS extends RSController{
 			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
 		}
 	}
-	@RequestMapping(value = "/doUpdate", method = { RequestMethod.POST, RequestMethod.GET })
+
+	/** 更新 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/update${className}", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
-	public Object doUpdate(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
+	public Object update${className}(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
 		try {
 			JSONArray jsonArray = loadParamJSONArray(json);
 			Map<?, ?> inParams = getElement(request, jsonArray, 0, HashMap.class);
@@ -59,6 +79,12 @@ public class ${className}ControllerRS extends RSController{
 			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
 		}
 	}
+
+	/** 按主键得到单条 ${comments}信息
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
 	@RequestMapping(value = "/getData", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 	public Object getData(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
@@ -72,9 +98,15 @@ public class ${className}ControllerRS extends RSController{
 			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
 		}
 	}
-	@RequestMapping(value = "/doDelete", method = { RequestMethod.POST, RequestMethod.GET })
+
+	/** 删除 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/delete${className}", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
-	public Object doDelete(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
+	public Object delete${className}(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
 		try {
 			JSONArray jsonArray = loadParamJSONArray(json);
 			Map<?, ?> inParams = getElement(request, jsonArray, 0, HashMap.class);
@@ -86,9 +118,14 @@ public class ${className}ControllerRS extends RSController{
 		}
 	}
 
-	@RequestMapping(value = "/doExport", method = { RequestMethod.POST, RequestMethod.GET })
+	/** 导出 ${comments}信息
+	 * @param request
+	 * @param response
+	 * @param locale
+	 */
+	@RequestMapping(value = "/export${className}", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
-	public Object doExport(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
+	public Object export${className}(HttpServletRequest request, @RequestBody JSONObject json, Locale locale) {
 		try {
 			JSONArray jsonArray = loadParamJSONArray(json);
 			Map<?, ?> inParams = getElement(request, jsonArray, 0, HashMap.class);

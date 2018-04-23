@@ -1,5 +1,5 @@
 
-package com.sitech.prm.scchannel.channel.${classname};
+package com.sitech.prm.scchannel.channel.${classname?lower_case};
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,10 +19,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ *   ${comments}
+ */
 @Controller
 @RequestMapping(value = "/${classname}")
 public class ${className}Controller extends NormalController{
-
+	/**  ${comments}分页查询
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
 	@RequestMapping(value = "/getPage", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public Object getPage(HttpServletRequest request, Locale locale) {
@@ -39,10 +46,14 @@ public class ${className}Controller extends NormalController{
 		}
 	}
 
-
-	@RequestMapping(value = "/doAdd", method = { RequestMethod.GET, RequestMethod.POST })
+	/** 添加 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/add${className}", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public Object doAdd(HttpServletRequest request, Locale locale) {
+	public Object add${className}(HttpServletRequest request, Locale locale) {
 		try {
 			Map<String, String> params = loadParam2Map(request);
 			// 获取登陆信息
@@ -56,10 +67,33 @@ public class ${className}Controller extends NormalController{
 		}
 	}
 
-
-	@RequestMapping(value = "/doUpdate", method = { RequestMethod.GET, RequestMethod.POST })
+	/** 更新 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/update${className}", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public Object doUpdate(HttpServletRequest request, Locale locale) {
+	public Object update${className}(HttpServletRequest request, Locale locale) {
+		try {
+			Map<String, String> params = loadParam2Map(request);
+			// 获取登陆信息
+			LoginOprVO lvo = getLoginOprVo(request);
+			Object result = ServiceUtils.callDspServiceLimitary(params, lvo);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
+		}
+	}
+	/** 按主键得到单条 ${comments}信息
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/getData", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public Object getData(HttpServletRequest request, Locale locale) {
 		try {
 			Map<String, String> params = loadParam2Map(request);
 			// 获取登陆信息
@@ -72,25 +106,14 @@ public class ${className}Controller extends NormalController{
 		}
 	}
 
-	@RequestMapping(value = "/getEntity", method = { RequestMethod.GET, RequestMethod.POST })
+	/** 删除 ${comments}
+	 * @param request
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/delete${className}", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public Object getEntity(HttpServletRequest request, Locale locale) {
-		try {
-			Map<String, String> params = loadParam2Map(request);
-			// 获取登陆信息
-			LoginOprVO lvo = getLoginOprVo(request);
-			Object result = ServiceUtils.callDspServiceLimitary(params, lvo);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ServiceUtils.createJsonExceptionReport(e, messageSource, locale);
-		}
-	}
-
-
-	@RequestMapping(value = "/doDelete", method = { RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
-	public Object doDelete(HttpServletRequest request, Locale locale) {
+	public Object delete${className}(HttpServletRequest request, Locale locale) {
 		try {
 			Map<String, String> params = loadParam2Map(request);
 			// 获取登陆信息
@@ -104,10 +127,14 @@ public class ${className}Controller extends NormalController{
 		}
 	}
 
+	/** 导出 ${comments}信息
+	 * @param request
+	 * @param response
+	 * @param locale
+	 */
 
-
-	@RequestMapping(value = "/doExport", method = { RequestMethod.POST, RequestMethod.GET })
-	public void doExport(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+	@RequestMapping(value = "/export${className}", method = { RequestMethod.POST, RequestMethod.GET })
+	public void export${className}(HttpServletRequest request, HttpServletResponse response, Locale locale) {
 		try {
 			Map<String, String> params = loadParam2Map(request);
 			LoginOprVO lvo = getLoginOprVo(request);

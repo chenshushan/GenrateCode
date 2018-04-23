@@ -101,9 +101,9 @@ public class MyTest {
 	@Test
 	public void dateTest(){
 
-		File touch = FileUtil.touch("F:\\360Downloads\\a\\b\\c.txt");
-
-		System.out.println(touch.getPath());
+		String[] split = "1,2,3,".split(",");
+		System.out.println(split.length);
+		System.out.println(Arrays.toString(split));
 
 	}
 

@@ -1,4 +1,4 @@
-package com.sitech.prm.scchannel.channel.${classname};
+package com.sitech.prm.scchannel.channel.${classname?lower_case};
 
 
 import com.google.common.base.Joiner;
@@ -20,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.*;
 
+/**
+ * ${comments}服务类
+ */
 @Service("${classname}ServiceImpl")
 public class ${className}ServiceImpl  implements ${className}Service {
 
@@ -32,13 +35,19 @@ public class ${className}ServiceImpl  implements ${className}Service {
 	@Resource
 	private CommonService commonService;
 
+	private static String dbString= "";
+
+
 	private Log logger;
 
 	public ${className}ServiceImpl(){
 		logger = LogFactory.getLog(this.getClass());
 	}
-
-
+	/** 查询${comments}列表
+	 * @param inParam
+	 * @param lvo
+	 * @return
+	 */
 	@Override
 	public PageListVo getPage(HashMap<String, String> inParam, LoginOprVO lvo) {
 
@@ -53,7 +62,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 		StringBuilder countSql = new StringBuilder();
 		countSql.append(" select count(1) from (").append(conditionSql).append(")");
 
-		String rowCount = baseDao.findString(countSql.toString(), params.toArray());
+		String rowCount = baseDao.findString(countSql.toString(), params.toArray(), dbString);
 		rowCount = Optional.fromNullable(rowCount).or("0");
 		if("0".equals(rowCount)){
 			return new PageListVo(rowCount, Collections.emptyList());
@@ -65,10 +74,15 @@ public class ${className}ServiceImpl  implements ${className}Service {
 				.append(" ) m where rownum <= " + (page * pageSize) + " ) ")
 				.append(" where rn > " + (pageSize * page - pageSize) + "");
 
-		List<Map<String, Object>> list = baseDao.findForList(pageSql.toString(), params.toArray());
+		List<Map<String, Object>> list = baseDao.findForList(pageSql.toString(), params.toArray(), dbString);
 		return new PageListVo(rowCount, list);
 	}
-
+	/** 按条件得到查询sql
+	 * @param conditionSql 最终拼接完成的sql
+	 * @param inParam 传入的相关参数
+	 * @param lvo 登录信息
+	 * @return
+	 */
 	private List getConditionSql(StringBuilder conditionSql, Map<String, String> inParam, LoginOprVO lvo){
 		List<String> params = new ArrayList();
 		conditionSql.append("select * from ${tableName } b where 1=1 ");
@@ -85,27 +99,33 @@ public class ${className}ServiceImpl  implements ${className}Service {
 		return params;
     }
 
-
+    /** 添加${comments}
+    * @param inParam
+    * @param lvo
+    * @return
+    */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-    public Map<String,String> doAdd(HashMap<String, Object> inParam, LoginOprVO lvo){
+    public Map<String,String> add${className}(HashMap<String, Object> inParam, LoginOprVO lvo){
 		String sql = "insert into ${tableName}(<#list columns as column>${column.columnName},</#list>${classname}Id,state) values (<#list columns as column>?,</#list>?,'1')";
 
 
-		String key = getSequenceKey("SEQ_${tableName}_KEY");
+    	long key = baseDao.getSeq("SEQ_DCHNBASICSTATION_KEY", dbString);
 		ParamsBuilder builder = ParamsBuilder.builder(inParam)
-	<#list columns as column>.set("${column.attrname}")</#list>.addParam(key);
+	<#list columns as column>.set("${column.attrname}")</#list>.addParam(String.valueOf(key));
 
-		baseDao.updateBySql(sql, builder.getParams().toArray());
+		baseDao.updateBySql(sql, builder.getParams().toArray(), dbString);
 		return ParamsBuilder.ok("添加成功");
 
 
 
     }
-
+    /** 更新${comments} 更新前插入对应历史表  标志为U
+    * @param inParam
+    * @param lvo
+    * @return
+    */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-    public Map<String,String> doUpdate(HashMap<String, String> inParam, LoginOprVO lvo){
+    public Map<String,String> update${className}(HashMap<String, String> inParam, LoginOprVO lvo){
 		String sql ="update ${tableName} set " +
         " <#list columns as column>${column.columnName} = ?<#if (column_index != columns?size -1 )>,</#if></#list> " +
         " where ${classname}Id=?";
@@ -116,16 +136,18 @@ public class ${className}ServiceImpl  implements ${className}Service {
     	.addParam(priKey);
 
 		addHisRecord(priKey, "U", lvo);
-		baseDao.updateBySql(sql, builder.getParams().toArray());
+		baseDao.updateBySql(sql, builder.getParams().toArray(), dbString);
 		return ParamsBuilder.ok("修改成功");
 
 	}
 
-
-
+    /** 删除${comments}  删除前插入对应历史表  标志为D
+    * @param inParam
+    * @param lvo
+    * @return
+    */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = java.lang.Exception.class)
-	public Map<String,String> doDelete(HashMap<String, String> inParam, LoginOprVO lvo){
+	public Map<String,String> delete${className}(HashMap<String, String> inParam, LoginOprVO lvo){
 		String priKeys = StringTools.changeNullStr(inParam.get("priKey"));
 		if("".equals(priKeys)){
 			return ParamsBuilder.error("没有对应的记录");
@@ -138,11 +160,15 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 		String ids = Joiner.on("','").join(split);
 		String sql = "update ${tableName} set state = '0' where  ${classname}Id  in ('" + ids+ "')";
-		baseDao.updateBySql(sql);
+		baseDao.updateBySql(sql, dbString);
 
 		return ParamsBuilder.ok("删除成功");
 	}
-
+    /** 编辑页面加载单条记录信息
+    * @param inParam
+    * @param lvo
+    * @return
+    */
 	@Override
 	public Map<String,String> getEntity(HashMap<String, String> inParam, LoginOprVO lvo){
         Object priKey = inParam.get("priKey");
@@ -150,16 +176,21 @@ public class ${className}ServiceImpl  implements ${className}Service {
         String sql = "select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list>,${classname}Id " +
         "from ${tableName} b where  b.${classname}Id= ?";
 
-        List<Map> list = baseDao.findBySql(sql, new Object[]{priKey});
+        List<Map> list = baseDao.findBySql(sql, new Object[]{priKey}, dbString);
         if(list.size() == 0 ){
         	return ParamsBuilder.error("没有查到对应的记录");
         }
         return ParamsBuilder.ok().put(list.get(0));
 
 	}
-
+	/** 按查询条件导出${comments} 信息
+	* @param inParam
+	* @param lvo
+	* @return
+	* @throws Exception
+	*/
 	@Override
-	public Map<String, Object> doExport(HashMap<String, String> inParam, LoginOprVO lvo) throws Exception {
+	public Map<String, Object> export${className}(HashMap<String, String> inParam, LoginOprVO lvo) throws Exception {
 		StringBuilder conditionSql = new StringBuilder();
 		List params = getConditionSql(conditionSql, inParam, lvo);
 
@@ -174,7 +205,7 @@ public class ${className}ServiceImpl  implements ${className}Service {
 
 		list.addAll(headList);
 
-        List<String[]> result = baseDao.findBySqlReArray(conditionSql.toString().replace(",${classname}Id",""), params.toArray());
+        List<String[]> result = baseDao.findBySqlReArray(conditionSql.toString().replace(",${classname}Id",""), params.toArray(), dbString);
 
         list.addAll(result);
 		Map<String, Object> retMap = new HashMap();
@@ -199,17 +230,17 @@ public class ${className}ServiceImpl  implements ${className}Service {
 	}
 
 
-	public String getSequenceKey(String seqName){
-		String sql = "select " + seqName + ".nextval from dual";
-		String key = baseDao.findString(sql);
-		return key;
-	}
-
+	/** 添加历史表信息
+	* @param priKey
+	* @param opType
+	* @param lvo
+	* @return
+	*/
 	private boolean addHisRecord(String priKey, String opType, LoginOprVO lvo){
 		// 插入修改前的记录到历史表
 		String sqlHis = "INSERT INTO ${tableName}HIS (<#list columns as column>${column.columnName},</#list> op_login, op_time,  op_type,${classname}Id,state)" +
 		" VALUES (<#list columns as column>?,</#list> ?, sysdate, ?, ?, ?)";
-		List<Map> entitys = baseDao.findBySql("select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list>,${classname}Id,state from ${tableName} where ${classname}Id = ? ", new Object[]{priKey});
+		List<Map> entitys = baseDao.findBySql("select <#list columns as column>${column.columnName}<#if (column_index != columns?size -1 )>,</#if></#list>,${classname}Id,state from ${tableName} where ${classname}Id = ? ", new Object[]{priKey}, dbString);
 		if(entitys.size() == 0 || entitys.size() > 1){
 			return false;
 		}
