@@ -136,7 +136,7 @@ ${classname}Info.loadData = function (priKey) {
         var returnMsg = data.RETURN_MSG;
         if (returnCode == "0") {
             <#list columns as column>
-            var ${column.attrname} = data.${column.columnName };
+            var ${column.attrname} = data.${column.columnName?upper_case };
             </#list>
             var priKey = data.${classname?upper_case}ID;
 

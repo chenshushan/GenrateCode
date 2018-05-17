@@ -15,9 +15,9 @@ function doQuery(){
 <#list columns as column>
 	<#if (column.ifShow == "1")>
             <#if (column.attrType == "String")>
-          {display:'${column.comments}',name:'${column.columnName }',align:'center',width:100,ret:true,render:function(row){ return renderRow(row,'${column.columnName }');}  },
+          {display:'${column.comments}',name:'${column.columnName?upper_case }',align:'center',width:100,ret:true,render:function(row){ return renderRow(row,'${column.columnName?upper_case  }');}  },
             <#else>
-			{ display: '${column.comments}', name: '${column.columnName}', width: 80 },
+			{ display: '${column.comments}', name: '${column.columnName?upper_case}', width: 80 },
             </#if>
 	</#if>
 </#list>
