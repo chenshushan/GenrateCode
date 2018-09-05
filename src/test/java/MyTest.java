@@ -1,4 +1,5 @@
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ZipUtil;
 import com.chen.code.entity.Template;
 import com.chen.code.entity.User;
 import com.chen.code.entity.enumdo.EnumBaseStatus;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,9 +52,7 @@ public class MyTest {
 		Template template = new Template();
 		template.setTemplateName("css");
 		template.setTemplatePath("path");
-		template.setUploadTime(LocalDate.now());
-		LocalDateTime now = LocalDateTime.now();
-		template.setCreatedTime(now);
+		template.setCreatedTime(new Date());
 		template.setStatus(EnumBaseStatus.NORMAL);
 		template.setModifiedCount(0);
 		User user = new User();
@@ -100,11 +100,13 @@ public class MyTest {
 	 */
 	@Test
 	public void dateTest(){
-
-		String[] split = "1,2,3,".split(",");
-		System.out.println(split.length);
-		System.out.println(Arrays.toString(split));
-
+		String zipFilePath = "D:\\IdeaProjects\\GenrateCode\\target\\classes\\upload\\template\\cwRsync_5.4.1_x86_Free\\code1536136812795.zip";
+//		File unzip = ZipUtil.unzip(zipFilePath);
+//		ZipUtil.unzip(zipFilePath, "D:\\IdeaProjects\\GenrateCode\\target\\classes\\upload\\template\\cwRsync_5.4.1_x86_Free\\");
+		File file = new File(zipFilePath);
+		File parentFile = file.getParentFile();
+		System.out.println(parentFile.getAbsolutePath());
+		FileUtil.del(parentFile);
 	}
 
 

@@ -81,16 +81,29 @@ templateInfo.addSubmit = function () {
         return;
     }
 
+
+    var options = {
+        url: "/template/addOK",
+        type:"post",
+        dataType:"json",　　　　　　　//服务器返回数据类型
+        success: function (data) {
+            ice.success("添加成功!");
+            parent.template.table.refresh();
+            templateInfo.close();
+        }
+    };
+    $("#templateInfoForm").ajaxForm(options);
+
     //提交信息
-    var ajax = new $ax("/template/addOK", function (data) {
-        ice.success("添加成功!");
-        window.parent.template.table.refresh();
-        templateInfo.close();
-    }, function (data) {
-        ice.error("添加失败!" + data.responseJSON.message + "!");
-    });
-    ajax.set(this.templateInfoData);
-    ajax.start();
+    // var ajax = new $ax("/template/addOK", function (data) {
+    //     ice.success("添加成功!");
+    //     window.parent.template.table.refresh();
+    //     templateInfo.close();
+    // }, function (data) {
+    //     ice.error("添加失败!" + data.responseJSON.message + "!");
+    // });
+    // ajax.set(this.templateInfoData);
+    // ajax.start();
 };
 
 /**

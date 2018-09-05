@@ -10,6 +10,7 @@ import com.chen.code.config.converter.StringToLocalDateTimeConverter;
 import com.chen.code.config.intercepter.CommonIntercepter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+
+import javax.servlet.MultipartConfigElement;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
@@ -95,6 +98,20 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addConverter(new StringToLocalDateConverter());
 		registry.addConverter(new StringToLocalDateTimeConverter());
 	}
-	
-	
+
+
+
+	/**
+	 * 文件上传配置
+	 * @return
+	 */
+	@Bean
+	public MultipartConfigElement multipartConfigElement() {
+		MultipartConfigFactory factory = new MultipartConfigFactory();
+		//文件最大
+		factory.setMaxFileSize("10MB"); //KB,MB
+		/// 设置总上传数据总大小
+		factory.setMaxRequestSize("50MB");
+		return factory.createMultipartConfig();
+	}
 }

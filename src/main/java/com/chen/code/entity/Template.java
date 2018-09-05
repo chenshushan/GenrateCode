@@ -1,16 +1,18 @@
 package com.chen.code.entity;
 
+import com.chen.code.common.utils.EnumUtil;
 import com.chen.code.entity.enumdo.EnumBaseStatus;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+
+
 
 /**
- * Created by Administrator on 2017/11/25.
- */
+* 模板
+*/
 @Entity
 public class Template {
 
@@ -19,22 +21,30 @@ public class Template {
 	@Column(name = "templateId")
 	private Integer templateId;
 
-	private String templateName;
+
+	// 模板路径
 
 	private String templatePath;
 
+	// 上传人
+
+	@ManyToOne(targetEntity = User.class)
 	private User addUser;
 
+	// 模板名称
 
-	private LocalDate uploadTime;
+	private String templateName;
 
-	private LocalDateTime createdTime;
 
-	private LocalDateTime modifiedTime;
+	private Date createdTime;
+
+	private Date modifiedTime;
 
 	private Integer modifiedCount;
+
 	@Type(type = "com.chen.code.common.IntegerValuedEnumType",parameters = {@Parameter(name = "enum",value = "com.chen.code.entity.enumdo.EnumBaseStatus")})
 	private EnumBaseStatus status;
+
 
 
 	public Integer getTemplateId() {
@@ -45,29 +55,67 @@ public class Template {
 		this.templateId = templateId;
 	}
 
-	public String getTemplateName() {
-		return templateName;
-	}
 
-	public void setTemplateName(String templateName) {
-		this.templateName = templateName;
-	}
 
-	public String getTemplatePath() {
-		return templatePath;
-	}
 
-	public void setTemplatePath(String templatePath) {
-		this.templatePath = templatePath;
-	}
+    /**
+    * 设置：模板路径
+    */
+    public void setTemplatePath(String templatePath) {
+	    this.templatePath = templatePath;
+    }
 
-	public User getAddUser() {
-		return addUser;
-	}
 
-	public void setAddUser(User addUser) {
-		this.addUser = addUser;
-	}
+
+
+    /**
+    * 获取：模板路径
+    */
+    public String getTemplatePath() {
+    	return templatePath;
+    }
+
+
+
+
+    /**
+    * 设置：上传人
+    */
+    public void setAddUser(User addUser) {
+    	this.addUser = addUser;
+    }
+
+
+
+
+
+    /**
+    * 获取：上传人
+    */
+    public User getAddUser() {
+    	return addUser;
+    }
+
+
+
+
+
+    /**
+    * 设置：模板名称
+    */
+    public void setTemplateName(String templateName) {
+	    this.templateName = templateName;
+    }
+
+
+
+
+    /**
+    * 获取：模板名称
+    */
+    public String getTemplateName() {
+    	return templateName;
+    }
 
 
 	public Integer getModifiedCount() {
@@ -86,42 +134,25 @@ public class Template {
 		this.status = status;
 	}
 
-	public LocalDate getUploadTime() {
-		return uploadTime;
+	public void setStatus(String status) {
+		this.status = EnumUtil.valueOf(EnumBaseStatus.class, status);
 	}
 
-	public void setUploadTime(LocalDate uploadTime) {
-		this.uploadTime = uploadTime;
-	}
-
-	public LocalDateTime getCreatedTime() {
+	public Date getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(LocalDateTime createdTime) {
+	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
-	public LocalDateTime getModifiedTime() {
+	public Date getModifiedTime() {
 		return modifiedTime;
 	}
 
-	public void setModifiedTime(LocalDateTime modifiedTime) {
+	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Template{" +
-				"templateId=" + templateId +
-				", templateName='" + templateName + '\'' +
-				", templatePath='" + templatePath + '\'' +
-				", addUser=" + addUser +
-				", uploadTime=" + uploadTime +
-				", createdTime=" + createdTime +
-				", modifiedTime=" + modifiedTime +
-				", modifiedCount=" + modifiedCount +
-				", status=" + status +
-				'}';
-	}
+
 }

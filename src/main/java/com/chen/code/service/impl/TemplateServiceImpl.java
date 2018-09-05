@@ -41,6 +41,11 @@ public class TemplateServiceImpl extends BaseServiceImpl<Template, Integer> impl
 		Date createdTimeEnd = query.getDate("createdTimeEnd");
 		builder.between(createdTimeBegin !=null && createdTimeEnd != null,"createdTime",new Range(createdTimeBegin,createdTimeEnd));
 
+		// 此处按关联需要查询的属性修改
+		String userName = query.getString("addUser.userName");
+		builder.like(userName != null,"addUser.userName", "%" + userName + "%");
+
+
 		Specification<Template> specification = builder.build();
 
 		Page<Template> page = templateDao.findAll(specification,pageRequest);

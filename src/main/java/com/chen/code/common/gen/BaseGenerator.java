@@ -225,31 +225,31 @@ public abstract class BaseGenerator {
 
 	public static List<String> getTemplates(){
 		List<String> templates = new ArrayList();
-//		templates.add("model/add.html.ftl");
-//		templates.add("model/Controller.java.ftl");
-//		templates.add("model/Dao.java.ftl");
-//
-//		templates.add("model/Entity.java.ftl");
-//		templates.add("model/info.js.ftl");
-//		templates.add("model/list.html.ftl");
-//
-//		templates.add("model/list.js.ftl");
-//		templates.add("model/menu.sql.ftl");
-//
-//		templates.add("model/modi.html.ftl");
-//		templates.add("model/Service.java.ftl");
-//		templates.add("model/ServiceImpl.java.ftl");
+		templates.add("model/add.html.ftl");
+		templates.add("model/Controller.java.ftl");
+		templates.add("model/Dao.java.ftl");
 
-		templates.add("model/siteqi/Controller.java.ftl");
-		templates.add("model/siteqi/ControllerRS.java.ftl");
-		templates.add("model/siteqi/edit.html.ftl");
-		templates.add("model/siteqi/edit.js.ftl");
-		templates.add("model/siteqi/list.html.ftl");
-		templates.add("model/siteqi/list.js.ftl");
+		templates.add("model/Entity.java.ftl");
+		templates.add("model/info.js.ftl");
+		templates.add("model/list.html.ftl");
 
-		templates.add("model/siteqi/menu.sql.ftl");
-		templates.add("model/siteqi/Service.java.ftl");
-		templates.add("model/siteqi/ServiceImpl.java.ftl");
+		templates.add("model/list.js.ftl");
+		templates.add("model/menu.sql.ftl");
+
+		templates.add("model/modi.html.ftl");
+		templates.add("model/Service.java.ftl");
+		templates.add("model/ServiceImpl.java.ftl");
+
+//		templates.add("model/siteqi/Controller.java.ftl");
+//		templates.add("model/siteqi/ControllerRS.java.ftl");
+//		templates.add("model/siteqi/edit.html.ftl");
+//		templates.add("model/siteqi/edit.js.ftl");
+//		templates.add("model/siteqi/list.html.ftl");
+//		templates.add("model/siteqi/list.js.ftl");
+//
+//		templates.add("model/siteqi/menu.sql.ftl");
+//		templates.add("model/siteqi/Service.java.ftl");
+//		templates.add("model/siteqi/ServiceImpl.java.ftl");
 
 		return templates;
 	}

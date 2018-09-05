@@ -23,15 +23,7 @@ public class JpaTest {
 	ITemplateService templateService;
 	@Test
 	public void contextLoads() {
-		Template template = new Template();
-		template.setTemplateName("css");
-		template.setTemplatePath("path");
-		LocalDate now = LocalDate.now();
-		template.setUploadTime(now.plusDays(-10));
-		template.setCreatedTime(LocalDateTime.now());
-		template.setStatus(EnumBaseStatus.NORMAL);
-		template.setModifiedCount(0);
-		templateService.save(template);
+
 	}
 
 }

@@ -24,7 +24,12 @@
 <script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
 <script src="/assets/js/plugins/layer/layer.min.js"></script>
 <script src="/assets/js/plugins/bootstrap-pagination/paging.js"></script>
+<script src="/assets/js/plugins/validate/jquery.validate.min.js"></script>
+
+<script src="/assets/js/plugins/layer/laydate/laydate.js"></script>
+<script src="/assets/js/jquery.form.js"></script>
 
 <!-- 自定义js -->
 <script src="/assets/js/content.js?v=1.0.0"></script>
 <script src="/assets/js/user/ice.js"></script>
+<script src="/assets/js/user/ajax-object.js"></script>

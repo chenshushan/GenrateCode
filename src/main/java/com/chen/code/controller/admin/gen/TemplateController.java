@@ -1,11 +1,14 @@
 package com.chen.code.controller.admin.gen;
 
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.util.ZipUtil;
 import com.chen.code.common.Query;
 import com.chen.code.common.R;
 import com.chen.code.common.utils.UploadUtils;
 import com.chen.code.controller.BaseController;
 import com.chen.code.entity.Template;
 import com.chen.code.service.ITemplateService;
+import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -45,7 +48,6 @@ public class TemplateController extends BaseController {
 	@RequestMapping(value= {"/modiOK"},method = RequestMethod.POST)
 	@ResponseBody
 	public R modiOK(Template template){
-		template.setTemplateId(2);
 		templateService.update(template);
 		return R.ok();
 	}
@@ -56,28 +58,42 @@ public class TemplateController extends BaseController {
 	}
 
 	@RequestMapping(value= {"/addOK"},method = RequestMethod.POST)
-	public String addOK(@RequestParam("file") MultipartFile file, Template template){
+	@ResponseBody
+	public R addOK(@RequestParam("file") MultipartFile file, Template template){
 
 		if(file.isEmpty()){
-			throw new RuntimeException("调整文件不可为空");
+			throw new RuntimeException("模板文件不可为空");
 		}
+
+
 		String fileName = file.getOriginalFilename();
-//		if(!fileName.endsWith("xls")){
-//			throw new RuntimeException("调整文件格式必须为xls");
-//		}
-		String templatePath = "/upload/template";
-		String path = request().getSession().getServletContext().getRealPath(templatePath);
+		String nameWithoutExtension = Files.getNameWithoutExtension(fileName);
+		String fileExtension = Files.getFileExtension(fileName);
+		if(!"zip".equalsIgnoreCase(fileExtension)) {
+			throw new RuntimeException("模板文件格式必须为zip");
+		}
+		String templatePath = "upload\\template";
+
+
+		ClassPathResource classPathResource = new ClassPathResource("/");
+		String classPath = classPathResource.getAbsolutePath();
+		String path = classPath + templatePath;
+
 
 		File upload = null;
 		try {
-			upload = UploadUtils.upload(file, path);
+			upload = UploadUtils.upload(file, path, nameWithoutExtension);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String fpath = templatePath + File.separator + upload.getName();
+		String fpath = templatePath + File.separator + nameWithoutExtension + File.separator + upload.getName();
+		template.setAddUser(null);
 		template.setTemplatePath(fpath);
+		// 解压上传的文件
+		ZipUtil.unzip(upload, upload.getParentFile());
+
 		templateService.save(template);
-		return "/admin/template/add";
+		return R.ok(fpath);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
