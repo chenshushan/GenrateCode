@@ -138,9 +138,9 @@
     var table = new BSTable("${classname}Table", "/${classname}/data", defaultColunms);
     table.init();
     function check(id,name) {
-        var selectKey = parent.document.getElementById('${selectKey}');
+        var selectKey = parent.document.getElementById('${'$'}{selectKey}');
         $(selectKey).val(id);
-        var selectName = parent.document.getElementById('${selectName}');
+        var selectName = parent.document.getElementById('${'$'}{selectName}');
         $(selectName).val(name);
 
         var index = $("#index").val();
