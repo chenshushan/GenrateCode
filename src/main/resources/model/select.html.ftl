@@ -144,7 +144,6 @@
         $(selectName).val(name);
 
         var index = $("#index").val();
-        console.log(index);
         parent.layer.close(index);
     };
 

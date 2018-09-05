@@ -49,6 +49,10 @@ public class GenEntity implements Serializable {
 	@Transient
 	private GenField key;
 
+	@ManyToOne(targetEntity = Template.class)
+	@JoinColumn(name = "template_id")
+	private Template template;
+
 	/**
 	 * 显示名称
 	 */
@@ -185,6 +189,14 @@ public class GenEntity implements Serializable {
 
 	public void setFields(Set<GenField> fields) {
 		this.fields = fields;
+	}
+
+	public Template getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Template template) {
+		this.template = template;
 	}
 }
     

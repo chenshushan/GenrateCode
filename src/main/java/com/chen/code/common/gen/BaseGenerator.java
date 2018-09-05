@@ -58,6 +58,8 @@ public abstract class BaseGenerator {
 	public static Map init(GenEntity table){
 		// 表信息
 		TableEntity tableEntity = new TableEntity();
+
+		tableEntity.setTplPath(table.getTemplate().getTemplatePath());
 		// 表名
 		String className = table.getClassName();
 		// 类名
@@ -218,6 +220,7 @@ public abstract class BaseGenerator {
 		map.put("classname", tableEntity.getClassname());
 		map.put("columns", tableEntity.getColumns());
 		map.put("author", "generator");
+		map.put("tplPath", tableEntity.getTplPath());
 		map.put("datetime", LocalDate.now().toString());
 		map.put("ifCache",tableEntity.getIfCache());
 		return map;
@@ -306,10 +309,10 @@ public abstract class BaseGenerator {
 	 * 获取文件名
 	 */
 	public static String getFileName(String template, String className, String packageName){
-		String packagePath = "java" + File.separator;
-		if(StringUtils.isNotBlank(packageName)){
-			packagePath += packageName.replace(".", File.separator) + File.separator;
-		}
+//		String packagePath = "java" + File.separator;
+//		if(StringUtils.isNotBlank(packageName)){
+//			packagePath += packageName.replace(".", File.separator) + File.separator;
+//		}
 
 		String[] split = Files.getNameWithoutExtension(template).split("\\.");
 		if(template.contains(".java")){

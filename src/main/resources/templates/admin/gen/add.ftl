@@ -49,6 +49,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label">模板：</label>
+                                <div class="col-sm-8">
+                                    <input id="templateName" name="template.templateName" readonly class="form-control" type="text">
+                                    <input id="templateId" name="template.templateId" class="form-control" type="hidden">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">缓存：</label>
                                 <div class="col-sm-8">
                                 	<select name="useCache" class="form-control">

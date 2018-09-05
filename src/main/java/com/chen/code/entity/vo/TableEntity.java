@@ -20,7 +20,8 @@ public class TableEntity {
 	private String className;
 	//类名(第一个字母小写)，如：sys_user => sysUser
 	private String classname;
-
+	// 模板路径
+	private String tplPath;
 	/**
 	 * 是否使用缓存 0否  1是
 	 */
@@ -69,5 +70,13 @@ public class TableEntity {
 
 	public void setIfCache(String ifCache) {
 		this.ifCache = ifCache;
+	}
+
+	public String getTplPath() {
+		return tplPath;
+	}
+
+	public void setTplPath(String tplPath) {
+		this.tplPath = tplPath;
 	}
 }
