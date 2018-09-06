@@ -46,14 +46,6 @@
                             </div>
 
 
-                                    <div class="condition-div col-sm-6">
-                                        <label class="control-label col-sm-4" for="addUser.addUserId">上传人:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="addUser.addUserId" name="addUser.addUserId" value="${entity.addUser.addUserId}">
-                                        </div>
-                                    </div>
-
-
 
                         </div>
 

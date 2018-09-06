@@ -23,15 +23,6 @@
             <form id="formSearch" class="form-horizontal">
                 <div class="form-group" style="margin-top:15px">
 
-
-                    <div class="col-sm-4 condition-div">
-                        <label class="control-label col-sm-3" for="addUser.addUserId">上传人：</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="addUser.addUserId" name="addUser.addUserId">
-                        </div>
-                    </div>
-
-
                     <div class="col-sm-4 condition-div">
                         <label class="control-label col-sm-3" for="templateName">模板名称：</label>
                         <div class="col-sm-9">
@@ -73,7 +64,6 @@
      */
     var defaultColunms = [
         {title: 'id', field: 'templateId', align: 'center', valign: 'middle'},
-        {title: '上传人', field: 'addUser', align: 'center', valign: 'middle', sortable: true},
         {title: '模板路径', field: 'templatePath', align: 'center', valign: 'middle', sortable: true},
         {title: '模板名称', field: 'templateName', align: 'center', valign: 'middle', sortable: true},
         {

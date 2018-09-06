@@ -111,7 +111,8 @@ public class GenController extends BaseController {
 			return m;
 		}).collect(Collectors.toList());
 
-
+//		bootstraptable js里面初始化的参数 sidePagination: "server" 设置为在服务端分页，那么我们的返回值必须告诉前端总记录的条数和当前页的记录数，
+// 		然后前端才知道如何分页。这两个参数的名字必须为total和rows
 		return R.ok().put("total",maps.size()).put("rows",rows);
 	}
 	@RequestMapping("/{path}")
@@ -124,9 +125,7 @@ public class GenController extends BaseController {
 		return "/admin/gen/columns";
 	}
 	@RequestMapping("/tdata")
-	public @ResponseBody R getDepartment(int limit, int offset, String departmentname, String statu){
-		Map<String, String[]> parameterMap = request().getParameterMap();
-		System.out.println(parameterMap);
+	public @ResponseBody R getDepartment(int pageSize, int pageNumber){
 		List list=new ArrayList();
 		for (int i = 0; i < 50; i++) {
 			Map map=new HashMap();
@@ -136,9 +135,8 @@ public class GenController extends BaseController {
 			map.put("Desc","描述信息"+i);
 			list.add(map);
 		}
-		List data = list.subList(offset, offset + limit);
-//		bootstraptable js里面初始化的参数 sidePagination: "server" 设置为在服务端分页，那么我们的返回值必须告诉前端总记录的条数和当前页的记录数，
-// 		然后前端才知道如何分页。这两个参数的名字必须为total和rows
+		int start = (pageNumber - 1) * pageSize;
+		List data = list.subList(start, start + pageSize);
 
 		return R.ok().put("total",list.size()).put("row",data);
 	}

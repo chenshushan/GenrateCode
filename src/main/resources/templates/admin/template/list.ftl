@@ -24,17 +24,6 @@
                 <div class="form-group" style="margin-top:15px">
 
 
-
-
-                            <div class="col-sm-4 condition-div">
-                                <label class="control-label col-sm-3"  for="addUser.userName">上传人：</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="addUser.userName" name="addUser.userName">
-                                </div>
-                            </div>
-
-
-
                             <div class="col-sm-4 condition-div">
                                 <label class="control-label col-sm-3"  for="templateName">模板名称：</label>
                                 <div class="col-sm-9">
