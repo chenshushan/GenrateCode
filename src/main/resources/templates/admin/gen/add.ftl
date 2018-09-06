@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">模板：</label>
                                 <div class="col-sm-8">
-                                    <input id="templateName" name="template.templateName" readonly class="form-control" type="text">
+                                    <input id="templateName" name="template.templateName" readonly onclick="selectTpl()" class="form-control" type="text">
                                     <input id="templateId" name="template.templateId" class="form-control" type="hidden">
                                 </div>
                             </div>
@@ -92,6 +92,22 @@
     <script src="/assets/js/plugins/layer/layer.min.js"></script>
     <script src="/assets/js/plugins/layer/laydate/laydate.js"></script>
     <script type="text/javascript">
+    function selectTpl() {
+        layer.open({
+            type: 2,
+            title: '选择模板',
+            area: ['80%', '95%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: '/template/select?selectKey=templateId&selectName=templateName&module=template',
+            success: function(layero, index){
+                var body = layer.getChildFrame('body',index);//建立父子联系
+                var indexInput = body.find("input[id = 'index']");
+                $(indexInput).val(index);
+            }
+        });
+    }
+
     $(document).ready(function () {
 
 	    $("#frm").validate({

@@ -131,7 +131,10 @@
             }, {
                 field: 'remark',
                 title: '备注'
-            }, {
+            },{
+                field: 'template.templateName',
+                title: '模板名称'
+            },  {
                 field: 'Desc',
                 title: '描述',
                 formatter: function(value, row, index) {

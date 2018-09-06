@@ -128,7 +128,7 @@
                 field: "empty",
                 title:'选中',
                 formatter: function(value, row, index) {
-                    var str = "<a href=\"javascript:check(" +row.'${classname}Id'+",'"+ row.'${classname}Name' +"')\">选中</a>";
+                    var str = "<a href=\"javascript:check(" +row.${classname}Id+",'"+ row.${classname}Name +"')\">选中</a>";
                     return str;
                 }
             }

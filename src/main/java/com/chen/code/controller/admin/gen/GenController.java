@@ -1,5 +1,6 @@
 package com.chen.code.controller.admin.gen;
 
+import cn.hutool.core.convert.Convert;
 import com.chen.code.common.Query;
 import com.chen.code.common.R;
 import com.chen.code.common.utils.PageUtils;
@@ -7,6 +8,7 @@ import com.chen.code.common.utils.ToolUtils;
 import com.chen.code.controller.BaseController;
 import com.chen.code.entity.GenField;
 import com.chen.code.entity.GenEntity;
+import com.chen.code.entity.Template;
 import com.chen.code.entity.enumdo.EnumJavaType;
 import com.chen.code.entity.enumdo.EnumYesOrNo;
 import com.chen.code.service.IFieldService;
@@ -148,6 +150,7 @@ public class GenController extends BaseController {
 		String tableName = request().getParameter("tableName");
 		String remark = request().getParameter("remark");
 		String useCache = request().getParameter("useCache");
+		String templateId = request().getParameter("template.templateId");
 
 		GenEntity tableExist = tableService.findByClassName(className);
 		if(tableExist != null){
@@ -163,6 +166,10 @@ public class GenController extends BaseController {
 		genEntity.setModifiedCount(0);
 		genEntity.setModifiedTime(new Date());
 		genEntity.setStatus("1");
+
+		Template template = new Template();
+		template.setTemplateId(Convert.toInt(templateId));
+		genEntity.setTemplate(template);
 		tableService.save(genEntity);
 		return R.ok("保存成功");
 	}
@@ -183,6 +190,7 @@ public class GenController extends BaseController {
 	public String modiTableOK(GenEntity table){
 		GenEntity entity = tableService.find(table.getTableId());
 		entity.setRemark(table.getRemark());
+		entity.setTemplate(table.getTemplate());
 		entity.setTableName(table.getTableName());
 		entity.setUseCache(table.getUseCache());
 		entity.setModifiedTime(new Date());

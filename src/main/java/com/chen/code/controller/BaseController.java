@@ -1,5 +1,6 @@
 package com.chen.code.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.chen.code.common.DateEditor;
 import com.chen.code.common.IntegerValuedEnum;
 import com.chen.code.entity.enumdo.EnumBaseStatus;
@@ -178,19 +179,25 @@ public class BaseController {
 	}
 
 
-	public void complteMode(Object model) throws InvocationTargetException, IllegalAccessException {
-		org.apache.commons.beanutils.BeanUtils.setProperty(model,"createdTime",new Date());
-		org.apache.commons.beanutils.BeanUtils.setProperty(model,"modifiedTime",new Date());
-		org.apache.commons.beanutils.BeanUtils.setProperty(model,"modifiedCount",0);
-		org.apache.commons.beanutils.BeanUtils.setProperty(model,"status", EnumBaseStatus.NORMAL);
+	public void complteAddMode(Object model) {
+		try {
+			org.apache.commons.beanutils.BeanUtils.setProperty(model,"createdTime",new Date());
+			org.apache.commons.beanutils.BeanUtils.setProperty(model,"modifiedTime",new Date());
+			org.apache.commons.beanutils.BeanUtils.setProperty(model,"modifiedCount",0);
+			org.apache.commons.beanutils.BeanUtils.setProperty(model,"status", EnumBaseStatus.NORMAL);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	@RequestMapping("/select")
 	public String select(String selectKey,String selectName){
 		request().setAttribute("selectKey",selectKey);
 		request().setAttribute("selectName",selectName);
-		return "/admin/platform/select";
+		String module = request().getParameter("module");
+		return StrUtil.format("/admin/{}/select", module) ;
 	}
 
 }

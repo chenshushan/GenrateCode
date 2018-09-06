@@ -46,6 +46,11 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="remark" name="remark" value="${entity.remark}">
                     </div>　
+
+
+
+
+
                 </div>
 
                 <div class="form-group" >
@@ -60,6 +65,13 @@
                     <script>
                         $("#useCache").val("${entity.useCache.index}");
                     </script>
+
+
+                    <label class="control-label col-sm-1" for="templateName">模板:</label>
+                    <div class="col-sm-3">
+                        <input id="templateName" name="template.templateName" readonly onclick="selectTpl()" class="form-control" type="text"  value="${entity.template.templateName}">
+                        <input id="templateId" name="template.templateId" class="form-control" type="hidden"  value="${entity.template.templateId}">
+                    </div>　
                 </div>
 
                 <div class="col-sm-4"  >
@@ -103,6 +115,22 @@
         table.setQueryParams({tableId:"${entity.tableId}"});
         table.init();
     });
+
+    function selectTpl() {
+        layer.open({
+            type: 2,
+            title: '选择模板',
+            area: ['80%', '95%'], //宽高
+            fix: false, //不固定
+            maxmin: true,
+            content: '/template/select?selectKey=templateId&selectName=templateName&module=template',
+            success: function(layero, index){
+                var body = layer.getChildFrame('body',index);//建立父子联系
+                var indexInput = body.find("input[id = 'index']");
+                $(indexInput).val(index);
+            }
+        });
+    }
     function initColumn() {
         var colums= [
             { field: 'fieldId',title: 'id'},

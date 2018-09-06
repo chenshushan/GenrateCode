@@ -92,6 +92,7 @@ public class TemplateController extends BaseController {
 		// 解压上传的文件
 		ZipUtil.unzip(upload, upload.getParentFile());
 
+		complteAddMode(template);
 		templateService.save(template);
 		return R.ok(fpath);
 	}

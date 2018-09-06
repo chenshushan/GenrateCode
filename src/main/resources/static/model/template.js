@@ -15,7 +15,7 @@ var template = {
 template.initColumn = function () {
 	return [
 		{field: 'selectItem', radio: true},
-		{title: 'id', field: 'templateId', visible: false, align: 'center', valign: 'middle'},
+		{title: 'id', field: 'templateId', align: 'center', valign: 'middle'},
     	{title: '模板路径', field: 'templatePath', align: 'center', valign: 'middle', sortable: true},
     	{title: '上传人', field: 'addUser', align: 'center', valign: 'middle', sortable: true},
     	{title: '模板名称', field: 'templateName', align: 'center', valign: 'middle', sortable: true},
