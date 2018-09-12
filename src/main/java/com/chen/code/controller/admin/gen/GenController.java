@@ -146,6 +146,7 @@ public class GenController extends BaseController {
 	public @ResponseBody R addTableOK(){
 		String className = request().getParameter("className");
 		String tableName = request().getParameter("tableName");
+		String modelName = request().getParameter("modelName");
 		String remark = request().getParameter("remark");
 		String useCache = request().getParameter("useCache");
 		String templateId = request().getParameter("template.templateId");
@@ -164,6 +165,7 @@ public class GenController extends BaseController {
 		genEntity.setModifiedCount(0);
 		genEntity.setModifiedTime(new Date());
 		genEntity.setStatus("1");
+		genEntity.setModelName(modelName);
 
 		Template template = new Template();
 		template.setTemplateId(Convert.toInt(templateId));
@@ -190,6 +192,7 @@ public class GenController extends BaseController {
 		entity.setRemark(table.getRemark());
 		entity.setTemplate(table.getTemplate());
 		entity.setTableName(table.getTableName());
+		entity.setModelName(table.getModelName());
 		entity.setUseCache(table.getUseCache());
 		entity.setModifiedTime(new Date());
 		entity.setModifiedCount(entity.getModifiedCount()+1);

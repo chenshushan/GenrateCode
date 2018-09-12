@@ -1,5 +1,6 @@
 package com.chen.code.common.gen;
 
+import cn.hutool.core.convert.Convert;
 import com.chen.code.entity.GenField;
 import com.chen.code.entity.GenEntity;
 import com.chen.code.entity.enumdo.EnumJavaType;
@@ -76,6 +77,9 @@ public abstract class BaseGenerator {
 		}else {
 			tableEntity.setTableName(tableName);
 		}
+		// 设置模块名
+		tableEntity.setModelName(Convert.toStr(table.getModelName(), ""));
+
 		// 备注
 		String remark = table.getRemark();
 		tableEntity.setComments(remark);
@@ -140,6 +144,9 @@ public abstract class BaseGenerator {
 		// 表名
 		String tableName = table.get("tableName");
 		tableEntity.setTableName(tableName);
+
+
+
 		// 备注
 		String tableComment = table.get("tableComment");
 		tableEntity.setComments(tableComment);
@@ -223,6 +230,7 @@ public abstract class BaseGenerator {
 		map.put("tplPath", tableEntity.getTplPath());
 		map.put("datetime", LocalDate.now().toString());
 		map.put("ifCache",tableEntity.getIfCache());
+		map.put("modelName",tableEntity.getModelName());
 		return map;
 	}
 

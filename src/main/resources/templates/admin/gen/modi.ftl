@@ -38,24 +38,29 @@
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="className" name="className" value="${entity.className}" readonly>
                     </div>
-                    <label class="control-label col-sm-1" for="className">表名:</label>
+                    <label class="control-label col-sm-1" for="tableName">表名:</label>
                     <div class="col-sm-3">
                         <input type="text" class="form-control" id="tableName" name="tableName" value="${entity.tableName}" >
                     </div>
-                    <label class="control-label col-sm-1" for="remark">备注:</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="remark" name="remark" value="${entity.remark}">
-                    </div>　
-
-
-
 
 
                 </div>
 
                 <div class="form-group" >
+                    <label class="control-label col-sm-1" for="remark">备注:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="remark" name="remark" value="${entity.remark}">
+                    </div>　
+                    <label class="control-label col-sm-1" for="modelName">模块:</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="modelName" name="modelName" value="${entity.modelName}">
+                    </div>　
 
-                    <label class="control-label col-sm-1" for="txt_search_departmentname">缓存:</label>
+
+                </div>
+                <div class="form-group" >
+
+                    <label class="control-label col-sm-1" for="useCache">缓存:</label>
                     <div class="col-sm-3">
                         <select class="form-control" name="useCache" id="useCache">
                             <option value="1">是</option>
@@ -72,6 +77,8 @@
                         <input id="templateName" name="template.templateName" readonly onclick="selectTpl()" class="form-control" type="text"  value="${entity.template.templateName}">
                         <input id="templateId" name="template.templateId" class="form-control" type="hidden"  value="${entity.template.templateId}">
                     </div>　
+
+
                 </div>
 
                 <div class="col-sm-4"  >

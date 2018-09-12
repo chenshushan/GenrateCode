@@ -22,10 +22,23 @@ public class TableEntity {
 	private String classname;
 	// 模板路径
 	private String tplPath;
+
+	private String modelName;
+
+
+
 	/**
 	 * 是否使用缓存 0否  1是
 	 */
 	private String ifCache;
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
 
 	public String getTableName() {
 		return tableName;

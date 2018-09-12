@@ -36,6 +36,16 @@ public class GenEntity implements Serializable {
 	@Column(name = "className")
 	private String className;
 
+
+	/**
+	 * 模块名
+	 */
+	@Column(name = "modelName")
+	private String modelName;
+
+
+
+
 	/**
 	 * 表名
 	 */
@@ -53,10 +63,17 @@ public class GenEntity implements Serializable {
 	@JoinColumn(name = "template_id")
 	private Template template;
 
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
 	/**
 	 * 显示名称
 	 */
-	//
 	private String remark;
 
 	/**

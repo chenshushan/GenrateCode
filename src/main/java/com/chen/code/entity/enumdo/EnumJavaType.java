@@ -15,7 +15,7 @@ public enum EnumJavaType implements IntegerValuedEnum{
 	Double("Double",6,"double"),
 	Boolean("Boolean",7,"char"),
 	Reference("Reference",8,"int"),
-	Enum("Enum",9,"bigint")
+	Enum("Enum",9,"tinyint")
 	;
 
 	// 成员变量

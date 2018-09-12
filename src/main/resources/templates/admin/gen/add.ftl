@@ -49,6 +49,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label">模块名：</label>
+                                <div class="col-sm-8">
+                                    <input id="modelName" name="modelName" class="form-control" type="text" >
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">模板：</label>
                                 <div class="col-sm-8">
                                     <input id="templateName" name="template.templateName" readonly onclick="selectTpl()" class="form-control" type="text">

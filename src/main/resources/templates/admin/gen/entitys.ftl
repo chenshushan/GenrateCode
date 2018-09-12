@@ -155,7 +155,7 @@
         }
 
         function addEntity() {
-            layer.open({
+            var index = layer.open({
                 type: 2,
                 title: '实体添加',
                 shadeClose: false,
@@ -166,6 +166,7 @@
                     $('#entitys').bootstrapTable("refresh");
                 }
             });
+            layer.full(index);
         }
 
 
