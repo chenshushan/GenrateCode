@@ -232,10 +232,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>net.sppan.base.Application</mainClass>
-					<fork>true</fork>
-				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.springframework</groupId>

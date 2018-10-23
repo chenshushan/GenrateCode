@@ -19,7 +19,6 @@ public class IndexController   {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@RequestMapping(value={"/","/index"})
 	public String index(){
 		List<User> users = userService.findAll();
 		logger.debug(users.toString());

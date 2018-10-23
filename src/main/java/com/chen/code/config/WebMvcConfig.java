@@ -1,5 +1,6 @@
 package com.chen.code.config;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +126,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + uploadFolder);
+		registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + uploadFolder + File.separator);
 	}
 
 }
