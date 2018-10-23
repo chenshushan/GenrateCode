@@ -72,21 +72,18 @@ public class TemplateController extends BaseController {
 		if(!"zip".equalsIgnoreCase(fileExtension)) {
 			throw new RuntimeException("模板文件格式必须为zip");
 		}
-		String templatePath = "upload\\template";
 
 
-		ClassPathResource classPathResource = new ClassPathResource("/");
-		String classPath = classPathResource.getAbsolutePath();
-		String path = classPath + templatePath;
 
 
 		File upload = null;
+		String childDir = "template/" + nameWithoutExtension;
 		try {
-			upload = UploadUtils.upload(file, path, nameWithoutExtension);
+			upload = UploadUtils.uploadMappingDir(file, childDir);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String fpath = templatePath + File.separator + nameWithoutExtension + File.separator + upload.getName();
+		String fpath = childDir + File.separator + upload.getName();
 		template.setAddUser(null);
 		template.setTemplatePath(fpath);
 		// 解压上传的文件

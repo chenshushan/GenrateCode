@@ -9,6 +9,7 @@ import com.chen.code.config.converter.StringToLocalDateConverter;
 import com.chen.code.config.converter.StringToLocalDateTimeConverter;
 import com.chen.code.config.intercepter.CommonIntercepter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -114,4 +116,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		factory.setMaxRequestSize("50MB");
 		return factory.createMultipartConfig();
 	}
+
+	@Value("${file.staticAccessPath}")
+	private String staticAccessPath;
+	@Value("${file.uploadFolder}")
+	private String uploadFolder;
+
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + uploadFolder);
+	}
+
 }

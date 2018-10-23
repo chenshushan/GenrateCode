@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import static com.chen.code.common.utils.UploadUtils.uploadFolder;
+
 
 /**
  * 使用freemarker生成
@@ -53,16 +55,17 @@ public class FreemarkerGen  extends BaseGenerator{
     }
 
     public static void generator(Map data, ZipOutputStream zip) throws IOException, TemplateException {
-        ClassPathResource classPathResource = new ClassPathResource("/");
-        String classPath = classPathResource.getAbsolutePath();
+//        ClassPathResource classPathResource = new ClassPathResource("/");
+//        String classPath = classPathResource.getAbsolutePath();
+
+
         String tplPath = Convert.toStr(data.get("tplPath"), "");
 
-        File tplZip = new File(classPath + tplPath);
+        File tplZip = new File(uploadFolder + File.separator + tplPath);
         File tplDir = tplZip.getParentFile();
         freemarker.template.Configuration cfg = getFreemarkerConfiguration(tplDir);
         List<String> templates = getTemplates(tplDir);
         for (String template : templates) {
-
             StringWriter sw = new StringWriter();
             cfg.getTemplate(template).process(data, sw);
             String fileName = getFileName(template, data.get("className").toString(), getConfig().getString("package"));

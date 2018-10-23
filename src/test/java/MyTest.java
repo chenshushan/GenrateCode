@@ -75,7 +75,6 @@ public class MyTest {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	}
 
-	@Test
 	public void test(){
 //		Map<String, String> maps = JDBCUtils.queryTable("tb_user");
 //		System.out.println(maps);
@@ -98,7 +97,6 @@ public class MyTest {
 
 	 	 \d{4}(\-|\/|.)\d{1,2}\1\d{1,2}   \1必须与小括号配合使用,正则表达式中的小括号"()"。是代表分组的意思。 如果再其后面出现\1则是代表与第一个小括号中要匹配的内容相同
 	 */
-	@Test
 	public void dateTest(){
 		String zipFilePath = "D:\\IdeaProjects\\GenrateCode\\target\\classes\\upload\\template\\cwRsync_5.4.1_x86_Free\\code1536136812795.zip";
 //		File unzip = ZipUtil.unzip(zipFilePath);

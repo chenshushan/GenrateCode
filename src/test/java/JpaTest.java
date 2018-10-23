@@ -1,16 +1,10 @@
 import com.chen.code.Application;
-import com.chen.code.entity.Template;
-import com.chen.code.entity.enumdo.EnumBaseStatus;
 import com.chen.code.service.ITemplateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Created by Administrator on 2017/11/26.
@@ -23,7 +17,7 @@ public class JpaTest {
 	ITemplateService templateService;
 	@Test
 	public void contextLoads() {
-
+		System.out.println(3);
 	}
 
 }
