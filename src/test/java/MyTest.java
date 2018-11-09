@@ -6,6 +6,7 @@ import com.chen.code.entity.enumdo.EnumBaseStatus;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.CharMatcher;
 import com.google.common.io.Files;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -73,6 +74,10 @@ public class MyTest {
 		System.out.println(b);
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+		String test = StringUtils.uncapitalize("Test");
+		System.out.println(test);
 	}
 
 	public void test(){

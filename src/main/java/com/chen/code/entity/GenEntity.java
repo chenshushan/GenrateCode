@@ -12,6 +12,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -95,7 +96,7 @@ public class GenEntity implements Serializable {
 	@OneToMany(targetEntity = GenField.class)
 	@JoinColumn(name = "table_id")
 	@JSONField(serialize=false)
-	private Set<GenField> fields;
+	private List<GenField> fields;
 
 	// 初始化状态集合 每个类都有
 	public EnumBaseStatus getStatus() {
@@ -184,6 +185,14 @@ public class GenEntity implements Serializable {
 		this.modifiedTime = modifiedTime;
 	}
 
+	public List<GenField> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<GenField> fields) {
+		this.fields = fields;
+	}
+
 	public Integer getModifiedCount() {
 		return modifiedCount;
 	}
@@ -200,13 +209,7 @@ public class GenEntity implements Serializable {
 		this.dbName = dbName;
 	}
 
-	public Set<GenField> getFields() {
-		return fields;
-	}
 
-	public void setFields(Set<GenField> fields) {
-		this.fields = fields;
-	}
 
 	public Template getTemplate() {
 		return template;

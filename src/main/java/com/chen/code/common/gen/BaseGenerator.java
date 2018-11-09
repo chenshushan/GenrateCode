@@ -87,7 +87,7 @@ public abstract class BaseGenerator {
 		tableEntity.setIfCache(String.valueOf(index));
 
 		//列信息
-		Set<GenField> fields = table.getFields();
+		List<GenField> fields = table.getFields();
 		List<ColumnEntity> columsList = fields.stream().map(field -> {
 			ColumnEntity columnEntity = new ColumnEntity();
 			String fieldName = field.getFieldName();
@@ -327,7 +327,7 @@ public abstract class BaseGenerator {
 			String s = "java" + File.separator + className + split[0] + ".java";
 			return s;
 		}else {
-			return "webapp" + File.separator   + "page"+ File.separator + className.toLowerCase() + split[0] + "." + split[1];
+			return "webapp" + File.separator   + "page"+ File.separator + StringUtils.uncapitalize(className) + split[0] + "." + split[1];
 		}
 
 //		if(template.contains("Controller.java")){
